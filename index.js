@@ -49,6 +49,8 @@ function parseTime(time) {
 }
 
 const commands = [
+  const commands = [
+
     new SlashCommandBuilder()
         .setName('konkurs')
         .setDescription('Tworzy konkurs')
@@ -75,9 +77,20 @@ const commands = [
             option.setName('wymagania')
                 .setDescription('Wymagania')
                 .setRequired(true)
+        ),
+
+    new SlashCommandBuilder()
+        .setName('invites')
+        .setDescription('Sprawdza ilość zaproszeń')
+        .addUserOption(option =>
+            option
+                .setName('osoba')
+                .setDescription('Osoba')
+                .setRequired(true)
         )
 
 ].map(cmd => cmd.toJSON());
+
 
 client.once('ready', async () => {
 
@@ -164,6 +177,35 @@ client.on('interactionCreate', async interaction => {
     if (interaction.isChatInputCommand()) {
 
         if (interaction.commandName === 'konkurs') {
+        if (interaction.commandName === 'invites') {
+
+            const user = interaction.options.getUser('osoba');
+
+            const invites = await interaction.guild.invites.fetch();
+
+            let total = 0;
+
+            invites.forEach(invite => {
+
+                if (
+                    invite.inviter &&
+                    invite.inviter.id === user.id
+                ) {
+                    total += invite.uses;
+                }
+            });
+
+            const embed = new EmbedBuilder()
+                .setColor('Blue')
+                .setTitle('📨 Zaproszenia')
+                .setDescription(
+`${user} zaprosił **${total}** osób na serwer.`
+                );
+
+            return interaction.reply({
+                embeds: [embed]
+            });
+        }
 
             if (
                 !interaction.member.permissions.has(
