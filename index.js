@@ -207,32 +207,32 @@ client.on('interactionCreate', async interaction => {
 
     if (interaction.commandName === 'konkurs') {
 
-            const user = interaction.options.getUser('osoba');
+         const user = interaction.options.getUser('osoba');
 
-            const invites = await interaction.guild.invites.fetch();
+const invites = await interaction.guild.invites.fetch();
 
-            let total = 0;
+let total = 0;
 
-            invites.forEach(invite => {
+invites.forEach(invite => {
 
-                if (
-                    invite.inviter &&
-                    invite.inviter.id === user.id
-                ) {
-                    total += invite.uses;
-                }
-            });
+    if (
+        invite.inviter &&
+        invite.inviter.id === user.id
+    ) {
+        total += invite.uses;
+    }
+});
 
-            const embed = new EmbedBuilder()
-                .setColor('Blue')
-                .setTitle('📨 Zaproszenia')
-                .setDescription(
+const embed = new EmbedBuilder()
+    .setColor('Blue')
+    .setTitle('📨 Zaproszenia')
+    .setDescription(
 `${user} zaprosił **${total}** osób na serwer.`
-                );
+    );
 
-            return interaction.reply({
-                embeds: [embed]
-            });
+return interaction.reply({
+    embeds: [embed]
+});
         }
 
             if (
