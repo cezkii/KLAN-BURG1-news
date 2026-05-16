@@ -48,8 +48,7 @@ function parseTime(time) {
     return null;
 }
 
-  const commands = [
-
+const commands = [
     new SlashCommandBuilder()
         .setName('konkurs')
         .setDescription('Tworzy konkurs')
@@ -76,20 +75,9 @@ function parseTime(time) {
             option.setName('wymagania')
                 .setDescription('Wymagania')
                 .setRequired(true)
-        ),
-
-    new SlashCommandBuilder()
-        .setName('invites')
-        .setDescription('Sprawdza ilość zaproszeń')
-        .addUserOption(option =>
-            option
-                .setName('osoba')
-                .setDescription('Osoba')
-                .setRequired(true)
         )
 
 ].map(cmd => cmd.toJSON());
-
 
 client.once('ready', async () => {
 
@@ -173,67 +161,9 @@ Cieszymy się że dołączasz na naszego discorda w naszym klanie podbijesz z na
 
 client.on('interactionCreate', async interaction => {
 
-   if (interaction.isChatInputCommand()) {
+    if (interaction.isChatInputCommand()) {
 
-    if (interaction.commandName === 'invites') {
-
-        const user = interaction.options.getUser('osoba');
-
-        const invites = await interaction.guild.invites.fetch();
-
-        let total = 0;
-
-        invites.forEach(invite => {
-
-            if (
-                invite.inviter &&
-                invite.inviter.id === user.id
-            ) {
-                total += invite.uses;
-            }
-        });
-
-        const embed = new EmbedBuilder()
-            .setColor('Blue')
-            .setTitle('📨 Zaproszenia')
-            .setDescription(
-`${user} zaprosił **${total}** osób na serwer.`
-            );
-
-        return interaction.reply({
-            embeds: [embed]
-        });
-    }
-
-    if (interaction.commandName === 'konkurs') {
-
-         const user = interaction.options.getUser('osoba');
-
-const invites = await interaction.guild.invites.fetch();
-
-let total = 0;
-
-invites.forEach(invite => {
-
-    if (
-        invite.inviter &&
-        invite.inviter.id === user.id
-    ) {
-        total += invite.uses;
-    }
-});
-
-const embed = new EmbedBuilder()
-    .setColor('Blue')
-    .setTitle('📨 Zaproszenia')
-    .setDescription(
-`${user} zaprosił **${total}** osób na serwer.`
-    );
-
-return interaction.reply({
-    embeds: [embed]
-});
-        }
+        if (interaction.commandName === 'konkurs') {
 
             if (
                 !interaction.member.permissions.has(
@@ -547,7 +477,7 @@ ${reason}`
             );
 
         await channel.send({
-            embeds: [embed],	
+            embeds: [embed],
             components: [row]
         });
 
