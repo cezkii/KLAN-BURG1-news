@@ -31,7 +31,6 @@ const TOKEN = process.env.TOKEN;
 
 const WELCOME_CHANNEL = '1504526271521226783';
 const TICKET_CHANNEL = '1504539078379438222';
-
 const ADMIN_ROLE = '1504541142061023503';
 
 const giveaways = new Map();
@@ -49,6 +48,7 @@ function parseTime(time) {
 }
 
 const commands = [
+
     new SlashCommandBuilder()
         .setName('konkurs')
         .setDescription('Tworzy konkurs')
@@ -74,6 +74,16 @@ const commands = [
         .addStringOption(option =>
             option.setName('wymagania')
                 .setDescription('Wymagania')
+                .setRequired(true)
+        ),
+
+    new SlashCommandBuilder()
+        .setName('invites')
+        .setDescription('Sprawdza ilość zaproszeń')
+        .addUserOption(option =>
+            option
+                .setName('osoba')
+                .setDescription('Osoba')
                 .setRequired(true)
         )
 
@@ -162,6 +172,36 @@ Cieszymy się że dołączasz na naszego discorda w naszym klanie podbijesz z na
 client.on('interactionCreate', async interaction => {
 
     if (interaction.isChatInputCommand()) {
+
+        if (interaction.commandName === 'invites') {
+
+            const user = interaction.options.getUser('osoba');
+
+            const invites = await interaction.guild.invites.fetch();
+
+            let total = 0;
+
+            invites.forEach(invite => {
+
+                if (
+                    invite.inviter &&
+                    invite.inviter.id === user.id
+                ) {
+                    total += invite.uses;
+                }
+            });
+
+            const embed = new EmbedBuilder()
+                .setColor('Blue')
+                .setTitle('📨 Zaproszenia')
+                .setDescription(
+`${user} zaprosił **${total}** osób na serwer.`
+                );
+
+            return interaction.reply({
+                embeds: [embed]
+            });
+        }
 
         if (interaction.commandName === 'konkurs') {
 
@@ -380,19 +420,16 @@ Zgłoś się na ticket INNE`
         let channelName = '';
 
         if (type === 'pomoc') {
-
             categoryName = 'POMOC';
             channelName = `pomoc-${interaction.user.username}`;
         }
 
         if (type === 'klan') {
-
             categoryName = 'DOŁĄCZANIE';
             channelName = `klan-${interaction.user.username}`;
         }
 
         if (type === 'inne') {
-
             categoryName = 'INNE';
             channelName = `inne-${interaction.user.username}`;
         }
