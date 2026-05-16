@@ -48,7 +48,6 @@ function parseTime(time) {
     return null;
 }
 
-const commands = [
   const commands = [
 
     new SlashCommandBuilder()
