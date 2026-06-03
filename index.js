@@ -116,7 +116,7 @@ client.once('ready', async () => {
 
         const embed = new EmbedBuilder()
             .setColor('Blue')
-            .setTitle('KLAN BURG1 - TICKETY')
+            .setTitle('KLAN KIJ55 - TICKETY')
             .setDescription('Wybierz temat ticketu');
 
         const menu = new StringSelectMenuBuilder()
