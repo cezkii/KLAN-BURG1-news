@@ -32,6 +32,7 @@ const TOKEN = process.env.TOKEN;
 const WELCOME_CHANNEL = '1504526271521226783';
 const TICKET_CHANNEL = '1504539078379438222';
 const ADMIN_ROLE = '1504541142061023503';
+const HELPER_ROLE = '1512768691345952878';
 
 const giveaways = new Map();
 
@@ -134,7 +135,7 @@ client.once('ready', async () => {
                     value: 'klan'
                 },
                 {
-                    label: '🆘 INNE',
+                    label: '🔧 MODY',
                     description: 'Inne sprawy',
                     value: 'inne'
                 }
@@ -479,15 +480,23 @@ Zgłoś się na ticket INNE`
                     ]
                 },
 
-                {
-                    id: ADMIN_ROLE,
-                    allow: [
-                        PermissionsBitField.Flags.ViewChannel,
-                        PermissionsBitField.Flags.SendMessages
-                    ]
-                }
-            ]
-        });
+               {
+    id: ADMIN_ROLE,
+    allow: [
+        PermissionsBitField.Flags.ViewChannel,
+        PermissionsBitField.Flags.SendMessages
+    ]
+},
+
+...(type === 'pomoc'
+    ? [{
+        id: HELPER_ROLE,
+        allow: [
+            PermissionsBitField.Flags.ViewChannel,
+            PermissionsBitField.Flags.SendMessages
+        ]
+    }]
+    : [])
 
         const closeButton = new ButtonBuilder()
             .setCustomId(`close_${channel.id}`)
