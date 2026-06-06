@@ -519,7 +519,6 @@ Zgłoś się na ticket POMOC`
 `${interaction.user}
 <@&${ADMIN_ROLE}> <@&${HELPER_ROLE}>`
 <@&${ADMIN_ROLE}>
-<@&${ADMIN_ROLE}>
 📌 Powód:
 ${reason}`
             );
