@@ -510,8 +510,6 @@ Zgłoś się na ticket POMOC`
             .setColor('Blue')
             .setTitle(
                 type === 'pomoc'
- ? `<@&${ADMIN_ROLE}> <@&${HELPER_ROLE}>`
-    : `<@&${ADMIN_ROLE}>
                     ? 'POMOC'
                     : type === 'klan'
                     ? 'DOŁĄCZANIE'
