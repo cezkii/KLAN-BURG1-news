@@ -131,13 +131,13 @@ client.once('ready', async () => {
                 },
                 {
                     label: '⚔️ DOŁĄCZ DO KLANU',
-                    description: 'Chcesz dołączyć do klanu BURG1? Kliknij tu',
+                    description: 'Chcesz dołączyć do klanu KIJ55? Kliknij tu',
                     value: 'klan'
                 },
                 {
                     label: '🔧 MODY',
-                    description: 'Inne sprawy',
-                    value: 'inne'
+                    description: 'Chcesz zakupić mody? Kliknij tu',
+                    value: 'mody'
                 }
             ]);
 
