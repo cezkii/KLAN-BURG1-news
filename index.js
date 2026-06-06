@@ -305,7 +305,7 @@ Winners: ${wygrani}`
                     msg.channel.send(
 `🎉 Gratulacje <@${userId}> wygrałeś **${nagroda}**
 
-Zgłoś się na ticket INNE`
+Zgłoś się na ticket POMOC`
                     );
                 });
 
@@ -430,8 +430,8 @@ Zgłoś się na ticket INNE`
             channelName = `klan-${interaction.user.username}`;
         }
 
-        if (type === 'inne') {
-            categoryName = 'INNE';
+        if (type === 'mody') {
+            categoryName = 'MODY';
             channelName = `inne-${interaction.user.username}`;
         }
 
@@ -497,7 +497,8 @@ Zgłoś się na ticket INNE`
         ]
     }]
     : [])
-
+]
+});
         const closeButton = new ButtonBuilder()
             .setCustomId(`close_${channel.id}`)
             .setLabel('Zamknij ticket')
